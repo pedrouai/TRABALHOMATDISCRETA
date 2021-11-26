@@ -1,2 +1,4 @@
-# TRABALHOMATDISCRETA
-TRABALHO DE MATEMÁTICA DISCRETA - SEGUNDO PERÍODO CIÊNCIAS DA COMPUTAÇÃO
+# Trabalho prático Matemática Discreta
+
+Alunos: João Paulo do Nascimento e Pedro
+Professor: Felipe Reis
