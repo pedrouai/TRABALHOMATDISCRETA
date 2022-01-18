@@ -1,4 +1,4 @@
-# TRABALHOMATDISCRETA
+# TRABALHOMATEMATICADISCRETA
 
 IFMG - Instituto Federal de Minas Gerais  
 Ciências da Computação - Segundo Período  
