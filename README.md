@@ -1,4 +1,4 @@
-# TRABALHO_PRÁTICO_MATEMÁTICA_DISCRETA
+# TRABALHO PRÁTICO MATEMÁTICA DISCRETA
 
 IFMG - Instituto Federal de Minas Gerais  
 Ciências da Computação - Segundo Período  
