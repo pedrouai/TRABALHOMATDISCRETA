@@ -1,0 +1,202 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <stdbool.h>
+
+#define TAMANHO_SET_A 10
+
+#define TAMANHO_SET_B 10
+
+bool VerificaSeExiste(int conjunto[], int valor){
+  int i;
+  for(i = 0; i < TAMANHO_SET_A; i++) {
+    if(conjunto[i] == valor) {
+      return true;
+    }
+  }
+  return false;
+}
+
+void ImprimirUniao(int setA[], int setB[]) {
+  int i;
+  printf("\n    Union of sets: ");
+  for(i = 0; i < TAMANHO_SET_A; i++){
+    printf(" %d", setA[i]);
+  }
+  for(i = 0; i < TAMANHO_SET_B; i++){
+    if(!VerificaSeExiste(setA, setB[i])) {
+      printf(" %d", setB[i]);
+    }
+  }
+}
+
+void ImprimirIntersecao(int setA[], int setB[]) {
+  int i;
+  printf("\n    Intercession of sets: ");
+  for(i = 0; i < TAMANHO_SET_B; i++){
+    if(VerificaSeExiste(setA, setB[i])) {
+      printf(" %d", setB[i]);
+    }
+  }
+}
+
+void ImprimirDiferencaAB(int setA[], int setB[]) {
+  int i;
+  printf("\n    Diference of sets A - B: ");
+  for(i = 0; i < TAMANHO_SET_A; i++){
+    if(!VerificaSeExiste(setB, setA[i])) {
+      printf(" %d", setA[i]);
+    }
+  }
+}
+
+void ImprimirDiferencaBA(int setA[], int setB[]) {
+  int i;
+  printf("\n    Diference of sets B - A: ");
+  for(i = 0; i < TAMANHO_SET_A; i++){
+    if(!VerificaSeExiste(setA, setB[i])) {
+      printf(" %d", setB[i]);
+    }
+  }
+}
+
+int main()
+{
+  int i = 0, j = 0;
+
+  int setA[TAMANHO_SET_A];
+  int setB[TAMANHO_SET_B];
+
+  int I, J;
+  int equal;
+
+  int oper = 1;
+
+  printf("\n\n");
+  printf("Exercise 1: ");
+  printf("\n\n");
+
+  srand(time(NULL));
+  printf("      Random Set A: ");
+  do{
+    setA[i] = rand() % 51;
+    equal = 0;
+    for(J = 0; J < i; J++){
+      if(setA[J] == setA[i])
+        equal = 1;
+  }
+      if(equal == 0)
+      i++;
+  }   while(i < 10);
+
+  for(i = 0; i < 10; i++){
+    printf("%d ", setA[i]);
+  }
+  printf("\n\n");
+
+  printf("      Random Set B: ");
+  do{
+    setB[j] = rand() % 51;
+    equal = 0;
+    for(I = 0; I < j; I++){
+      if(setB[I] == setB[j])
+        equal = 1;
+  }
+      if(equal == 0)
+      j++;
+  }   while(j < 10);
+  for(j = 0; j < 10; j++){
+    printf("%d ", setB[j]);
+  }
+  printf("\n\n");
+    
+  printf("-------------------------------------------------- Set Operations --------------------------------------------------- ");
+  printf("\n\n");
+
+
+  while((oper != 0)){
+    printf(" 1.   Union of sets;");
+    printf("\n");
+    printf(" 2.   Intercession of sets;");
+    printf("\n");
+    printf(" 3.   A - B;");
+    printf("\n");
+    printf(" 4.   B - A;");
+    printf("\n");
+    printf(" 5.   Denial of A;");
+    printf("\n");
+    printf(" 6.   Perform all operations;");
+    printf("\n");
+    printf(" 0.   End program.");
+    printf("\n\n");
+    printf(" Which operation do you want to perform: ");
+    scanf("%d",&oper);
+
+    switch(oper){
+      case 1:
+        ImprimirUniao(setA, setB);
+        break;
+
+      case 2:
+        ImprimirIntersecao(setA, setB);
+        break;
+
+      case 3:
+        ImprimirDiferencaAB(setA, setB);
+        break;
+
+      case 4:
+        ImprimirDiferencaBA(setB, setA);
+        break;
+
+      case 5:
+  	//ImprimirNegacaoA();
+        break;
+
+      case 6:
+        ImprimirUniao(setA, setB);
+        printf("\n");
+        ImprimirIntersecao(setA, setB);
+        printf("\n");
+        ImprimirDiferencaAB(setA, setB);
+        printf("\n");
+        ImprimirDiferencaBA(setA, setB);
+	      printf("\n");
+        //ImprimirNegacaoA();
+        break;
+
+      case 0:
+        printf("\n    Finishing...\n");
+        return 0;
+        break;
+        
+      default:
+        printf("\n    Digite uma opção válida!");
+        break;
+  }
+
+  printf("\n\n---------------------------------------------------------------------------------------------------------------------\n\n");
+
+    int repeat = -1;          
+    while(repeat != 0 && repeat != 1) {
+    /*printf("\n\n---------------------------------------------------------------------------------------------------------------------\n\n");*/
+      printf(" Want to perform another operation? Press 1 for YES or press 0 for EXIT: ");
+      scanf(" %d", &repeat);
+      printf("\n\n");
+
+      switch(repeat){
+        case 1:
+          break;
+
+        case 0:
+          printf("\n      Finishing...");
+          return 0;
+          break;
+
+        default:
+          printf("\n Digite uma opção válida!\n");
+            break;
+      }
+    }
+  }
+}
