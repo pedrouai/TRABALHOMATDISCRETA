@@ -1,0 +1,165 @@
+#include <stdio.h>
+#include <time.h>
+#include <stdbool.h>
+
+#define TAMANHO_VETOR 10
+
+
+
+bool JaExiste(int vet[][2], int a, int b){
+  bool existe = false;
+  int i;
+  for(i = 0; i < 10; i ++){
+    if(vet[i][0] == a && vet[i][1] == b){
+      existe = true;
+    }
+  }
+  return existe;
+}
+
+void OrdenarVetor(int vet[10][2]){
+  int aux[2];
+  int i, j;
+  for(i = 0; i < 9; i++){
+    for(j = 0; j < 9; j++){
+      aux[0] = vet[j][0];
+      aux[1] = vet[j][1];
+      if(vet[j + 1][0] < vet[j][0]){
+        vet[j][0] = vet[j + 1][0];
+        vet[j][1] = vet[j + 1][1];
+        vet[j + 1][0] = aux[0];
+        vet[j + 1][1] = aux[1];
+      }
+      else if(vet[j + 1][0] == vet[j][0] && vet[j + 1][1] < vet[j][1]){
+        vet[j][0] = vet[j + 1][0];
+        vet[j][1] = vet[j + 1][1];
+        vet[j + 1][0] = aux[0];
+        vet[j + 1][1] = aux[1];
+      }
+    }
+  }
+}
+
+bool IsReflexiva(int vet[][2]){
+  int quantidadeDeReflexiva = 0;
+  int quantidadeDeNumerosDiferentes = 0;
+  int aux[5];
+  int i, j;
+  for(i = 0; i < 10; i++){
+    if(vet[i][0] == vet[i][1]){
+      quantidadeDeReflexiva++;
+    }
+  }
+
+  bool primeiroNumeroAdicionado, segundoNumeroAdicionado;
+  for(i = 0; i < 10; i++){
+    primeiroNumeroAdicionado = false;
+    segundoNumeroAdicionado = false;
+    for(j = 0; j < 5; j++){
+      if(vet[i][0] == aux[j]){
+        primeiroNumeroAdicionado = true;
+      }
+      if (vet[i][1] == aux[j]){
+        segundoNumeroAdicionado = true;
+      }
+    }
+    if(!primeiroNumeroAdicionado){
+      aux[quantidadeDeNumerosDiferentes] = vet[i][0];
+      quantidadeDeNumerosDiferentes++;
+    }
+    if(!segundoNumeroAdicionado && vet[i][0] != vet[i][1]){
+      aux[quantidadeDeNumerosDiferentes] = vet[i][1];
+      quantidadeDeNumerosDiferentes++;
+    }
+  }
+  return quantidadeDeReflexiva == quantidadeDeNumerosDiferentes;
+}
+
+bool VerificaSeHaReflexivo(int vet[][2], int valor, int indice) {
+  int i;
+  for(i = 0; i < indice; i++) {
+    if(vet[i][0] == vet[i][1] && vet[i][0] == valor) {
+      return true;
+    }
+  }
+  return false;
+}
+
+int GetFechoReflexivo(int vet[][2]){
+  int fechoReflexivo[TAMANHO_VETOR * 2][2];
+  int indice = TAMANHO_VETOR;
+  int i, j;
+  for(i = 0; i < TAMANHO_VETOR; i++){
+    fechoReflexivo[i][0] = vet[i][0];
+    fechoReflexivo[i][1] = vet[i][1];
+  }
+
+  for(i = 0; i < TAMANHO_VETOR; i++) {
+    if(!VerificaSeHaReflexivo(fechoReflexivo, vet[i][0], indice))
+    {
+      fechoReflexivo[indice][0] = vet[i][0];
+      fechoReflexivo[indice][1] = vet[i][0];
+      indice++;
+    }
+    if(!VerificaSeHaReflexivo(fechoReflexivo, vet[i][1], indice))
+    {
+      fechoReflexivo[indice][0] = vet[i][1];
+      fechoReflexivo[indice][1] = vet[i][1];
+      indice++;
+    }
+  }
+  return fechoReflexivo;
+}
+
+
+
+
+bool IsSimetrico(int vet[][2]) {
+  int quantidadeDeSimetricos = 0;
+  int i, j;
+  for(i = 0; i < 10; i++){
+    for(j = 0; j < 10; j++){
+      if(vet[i][0] == vet[j][1] && vet[i][1] == vet[j][0]){
+        quantidadeDeSimetricos++;
+      }
+    }
+  }
+
+  return quantidadeDeSimetricos == 10;
+}
+
+bool IsAntissimetrico(int vet[][2]) {
+  return !IsSimetrico(vet);
+}
+
+  int main(void) {
+    int vetor[10][2];
+    int a, b;
+    int i, j;
+    bool inseriu;
+
+    for(i = 0; i < 10; i++){
+      inseriu = false;
+      srand(time(NULL));
+      while(!inseriu){
+        a = rand() % 5;
+        b = rand() % 5;
+        bool existe = JaExiste(vetor, a, b);
+        if(!existe){
+          vetor[i][0] = a;
+          vetor[i][1] = b;
+          inseriu = true;
+        }
+      }
+    }
+
+
+    printf("\n");
+    OrdenarVetor(vetor);
+    for(i = 0; i < 10; i++){
+      printf("\n(%d, %d) ", vetor[i][0], vetor[i][1]);
+    }
+    printf("\n");
+
+  return 0;
+}
